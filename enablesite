@@ -1,0 +1,47 @@
+#!/bin/bash
+# Call this script enablesite
+[ `whoami` = root ] || exec sudo $0
+# Check if enablesite exists and is executable, otherwise create it
+if [[ ! -x /usr/local/bin/enablesite ]]; then
+    echo '#!/bin/bash' > /usr/local/bin/enablesite
+    echo 'if [ $# -ne 1 ]; then' >> /usr/local/bin/enablesite
+    echo '  echo "Usage: enablesite [Apache2DomainRecord]"' >> /usr/local/bin/enablesite
+    echo '  echo "Example: enablesite newdomain.com.conf"' >> /usr/local/bin/enablesite
+    echo '  exit 1' >> /usr/local/bin/enablesite
+    echo 'fi' >> /usr/local/bin/enablesite
+    echo '' >> /usr/local/bin/enablesite
+    echo 'conf="$1"' >> /usr/local/bin/enablesite
+    echo '' >> /usr/local/bin/enablesite
+    echo 'sudo a2dissite $conf' >> /usr/local/bin/enablesite
+    echo 'sudo systemctl reload apache2' >> /usr/local/bin/enablesite
+    echo 'sudo systemctl restart apache2' >> /usr/local/bin/enablesite
+    echo 'sudo a2ensite $conf' >> /usr/local/bin/enablesite
+    echo 'sudo systemctl reload apache2' >> /usr/local/bin/enablesite
+    echo 'sudo systemctl restart apache2' >> /usr/local/bin/enablesite
+    echo 'sudo apache2ctl configtest' >> /usr/local/bin/enablesite
+    echo 'sudo systemctl reload apache2' >> /usr/local/bin/enablesite
+    echo 'sudo systemctl restart apache2' >> /usr/local/bin/enablesite
+    echo 'echo "Your New Apache2 Conf Page Has Been Loaded Into Sites-Enabled"' >> /usr/local/bin/enablesite
+    chmod +x /usr/local/bin/enablesite
+    rm ./enablesite
+fi
+
+# Continue with the remaining commands
+if [ $# -ne 1 ]; then
+  echo "Usage: enablesite [Apache2DomainRecord]"
+  echo "Example: enablesite newdomain.com.conf"
+  exit 1
+fi
+
+conf="$1"
+
+sudo a2dissite "$conf"
+sudo systemctl reload apache2
+sudo systemctl restart apache2
+sudo a2ensite "$conf"
+sudo systemctl reload apache2
+sudo systemctl restart apache2
+sudo apache2ctl configtest
+sudo systemctl reload apache2
+sudo systemctl restart apache2
+echo "Your New Apache2 Conf Page Has Been Loaded Into Sites-Enabled"
