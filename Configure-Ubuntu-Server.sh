@@ -6,22 +6,22 @@
 	apt-get update && sudo apt-get upgrade -y
 	sudo apt-get install dialog
 	cmd=(dialog --separate-output --checklist "Please Select Software you want to install:" 22 76 16)
-	options=(1 "All PHP Packages" off    # any option can be set to default to "on"
+	options=(1 "All PHP 7.0 - 8.2" off    # any option can be set to default to "on"
 	         2 "Apache2" off
 	         3 "Build Essentials" off
 	         4 "Rust" off
 	         5 "Git" off
 	         6 "Composer" off
-	         7 "JRE && JDK" off
+	         7 "JRE & JDK" off
 	         8 "MySQL" off
 	         9 "Nginx" off
-	         10 "Install Redis" off
+	         10 "Redis" off
 	         11 "GoLang" off
-	         12 "Install cURL & ZIP/UNZIP" off
+	         12 "Curl & Zip/Unzip" off
 	         13 "Lets Encrypt" off
 	         14 "Laravel" off
 	         15 "Install Ruby" off
-	         16 "Python (all versions)" off
+	         16 "Python (2 & 3)" off
 	         17 "Node.js, NVM, & NPM" off
 	         18 "Clang 17" off)
 	choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -31,7 +31,7 @@
 	    case $choice in
 	        1)
 	            #Install All PHP Versions 7.0 - 8.2 including libapache2-mod-phpX.X package
-                echo "Installing All PHP Versions"
+                echo "All PHP 7.0 - 8.2"
                 echo "Install Some PPAs for PHP"
                 apt-add-repository ppa:ondrej/php -y
                 apt-add-repository ppa:chris-lea/redis-server -y
@@ -464,8 +464,8 @@
 				echo "GoLang Installed Successfully!"	
 				;;
 			12)
-				# Install cURL & ZIP/UNZIP
-                echo "Installing Unity Tweak Tool"
+				# Curl & Zip/Unzip
+                echo "Installing Curl & Zip/Unzip"
                 sudo apt-get install curl -y
                 sudo apt-get install zip unzip -y
 				;;
@@ -542,8 +542,8 @@
                 echo "Ruby Installation Successful"
 				;;
 			16)
-				#Python (All Verions)
-				echo "Installing Python all versions"
+				#Python (2 & 3)
+				echo "Installing Python (2 & 3)"
 				sudo apt install software-properties-common
 				sudo apt install python-minimal -y
 				sudo add-apt-repository ppa:deadsnakes/ppa
