@@ -16,14 +16,14 @@
 	         8 "MySQL" off
 	         9 "Nginx" off
 	         10 "Install Redis" off
-	         11 "Unity Tewak Tool" off
+	         11 "GoLang" off
 	         12 "Install cURL & ZIP/UNZIP" off
 	         13 "Lets Encrypt" off
 	         14 "Laravel" off
 	         15 "Install Ruby" off
 	         16 "Python (all versions)" off
 	         17 "Node.js, NVM, & NPM" off
-	         18 "Numix Icons" off)
+	         18 "Clang 17" off)
 	choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
 	clear
 	for choice in $choices
@@ -458,9 +458,10 @@
                 echo "Redis Server Set to Start at boot!"					
                 ;;
 			11)
-				#Unity tweak tool
-				echo "Installing Unity Tweak Tool"
-				apt install unity-tweak-tool -y
+				#GoLang
+				echo "GoLang"
+				sudo wget -q -O - https://git.io/vQhTU | bash
+				echo "GoLang Installed Successfully!"	
 				;;
 			12)
 				# Install cURL & ZIP/UNZIP
@@ -544,13 +545,13 @@
 				#Python (All Verions)
 				echo "Installing Python all versions"
 				sudo apt install software-properties-common
+				sudo apt install python-minimal -y
 				sudo add-apt-repository ppa:deadsnakes/ppa
 				sudo apt update -y && sudo apt upgrade -y
-				echo "Installing Python 2"
-				sudo apt install python2 -y
 				echo "Installing Python 3"
 				sudo apt install python3.11 -y
 				sudo apt install python3.9 -y
+				sudo apt install python3.8 -y
 				sudo apt install python3.7 -y
 				sudo apt install python3.6 -y
 				sudo apt install python3.5 -y
@@ -558,8 +559,9 @@
 				sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.5 2
 				sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.6 3
 				sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.7 4
-				sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 5
-				sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.11 6	
+				sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.8 5
+				sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.9 6
+				sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.11 7	
 				sudo update-alternatives --config python	
 				;;
 			17)
@@ -571,11 +573,12 @@
 				node -v
 				;;
 			18)
-				#Numix Icons
-				echo "Installing Numic Icons"
-				apt-add-repository ppa:numix/ppa -y
-				apt-get update
-				apt-get install numix-icon-theme numix-icon-theme-circle -y
+				#Clang 17
+				echo "Installing Clang"
+				wget https://apt.llvm.org/llvm.sh
+				chmod u+x llvm.sh
+				sudo echo -e '\n' | ./llvm.sh 17
+				clang-xx --version
 				;;
 	    esac
 	done
