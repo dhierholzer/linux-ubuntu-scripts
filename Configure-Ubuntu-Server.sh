@@ -381,8 +381,8 @@
 				echo "Installing GIT"
 				sudo apt-get install git -y
                 echo "Git Installed Successfully!"
-                git config --global user.name "Daniel Hierholzer"
-                git config --global user.email "dhierholzer@gmail.com"
+                git config --global user.name "Github User"
+                git config --global user.email "1337@github.com"
 				;;
 			6)
 				#Composer
