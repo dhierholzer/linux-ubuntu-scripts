@@ -97,7 +97,7 @@ Got **something interesting** you'd like to **share**? Learn more (coming soon)
 
 ## Credits
 
-| [![dhierholzer](https://avatars.githubusercontent.com/u/12091032?v=4) style="height:75%;width:100%;"](https://github.com/dhierholzer)  | 
+| [![dhierholzer](https://avatars.githubusercontent.com/u/12091032?v=4)](https://github.com/dhierholzer)  | 
 
 
 ## Support
