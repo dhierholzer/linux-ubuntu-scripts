@@ -22,13 +22,13 @@
 <tr>
 <td>
   
-**Linux Ubuntu Scripts** are a set of scripts that were created to satisfy 3 different use cases. 
+**Linux Ubuntu Scripts** are a set of scripts that were created to satisfy 3 different Use Cases. 
 
-The First Use Case is to help with **Initial Software Installation**. As this name Implies, This script is designed to be used right after a fresh installation of Ubuntu Server. This sort of script typically only needs to be ran once per installation. 
+- 1️⃣ The First Use Case is to help with **Initial Software Installation**. As this name Implies, This script is designed to be used right after a fresh installation of Ubuntu Server. This sort of script typically only needs to be ran once per installation. 
 
-The Second Use Case is to help the server admin with day-to-day operations by providing **Lazy Commands**. The term Lazy Command is used because it allows admins to execute long multi-string commands using only a single word. This script adds the lazy commands as well as making them global so that they can be run from any directory and thus only need to be ran once.
+- 2️⃣ The Second Use Case is to help the server admin with day-to-day operations by providing **Lazy Commands**. The term Lazy Command is used because it allows admins to execute long multi-string commands using only a single word. This script adds the lazy commands as well as making them global so that they can be run from any directory and thus only need to be ran once.
 
-The Third Use Case is to help with **New Client Services**. An example of this would be adding a new domain to a web server, or creating a new client database. The scripts that are designed to satisfy this Use Case might be used regularly or rarely depending on how frequently this type of job is requested.
+- 3️⃣ The Third Use Case is to help with **New Client Services**. An example of this would be adding a new domain to a web server, or creating a new client database. The scripts that are designed to satisfy this Use Case might be used regularly or rarely depending on how frequently this type of job is requested.
 
 ![Linux Ubuntu Scripts](https://raw.githubusercontent.com/dhierholzer/linux-ubuntu-scripts/main/SoftwareSelect.png)
 <p align="right">
@@ -39,7 +39,7 @@ The Third Use Case is to help with **New Client Services**. An example of this w
 </tr>
 </table>
 
-## Installation
+## Installation :floppy_disk:
 
 > [!NOTE]  
 > This Installation Section Is still being worked on and is not yet completed.
@@ -56,7 +56,7 @@ The Third Use Case is to help with **New Client Services**. An example of this w
 > You must first make the scripts Executable by using chmod u+x TheScriptNameHere.sh
 
 
-## Features
+## Features :bookmark_tabs:
 
 ##### Use Case 1: Initial Software Installation
 ##### Script Name: Configure-Ubuntu-Server.sh
