@@ -412,7 +412,7 @@
                 		sudo service apache2 restart
 				;;
 			9)
-				#Ubuntu Restricted Extras
+				#Nginx
 				echo "Installing Nginx"
 				sudo apt install nginx -y
 				sudo rm /etc/nginx/sites-enabled/default
@@ -456,11 +456,21 @@
                 		echo "Redis Server Set to Start at boot!"					
                 		;;
 			11)
-				#GoLang
-				echo "GoLang"
-				sudo wget -q -O - https://git.io/vQhTU | bash
-				echo "GoLang Installed Successfully!"	
-				;;
+                                #GoLang
+                                echo "Getting Ready To Install GoLang"
+                                if (( $EUID == 0 )); then
+                                echo "We See You Are Currently Root..." 
+                                echo "To Avoid Future Problems We Will"
+                                echo "Install Golang as a NonRoot User"
+                                su -c "wget -q -O - https://git.io/vQhTU | bash" $SUDO_USER
+                                su -c "source ~/.bashrc" $SUDO_USER
+                                else
+                                echo "Installing GoLang As Your Current NonRoot User"
+                                wget -q -O - https://git.io/vQhTU | bash
+                                source ~/.bashrc
+                                fi
+                                echo "GoLang Installed Successfully!"
+                                ;;
 			12)
 				# Curl & Zip/Unzip
                 		echo "Installing Curl & Zip/Unzip"
@@ -472,12 +482,12 @@
 				echo "Lets Encrypt"
 				sudo apt-get install certbot -y
 				;;
-			14)
-				#Installing Larvel
-				echo "Installing Larvel"
-				sudo mysql
-				# If /root/.my.cnf exists then it won't ask for root password
-                        	if [ -f /root/.my.cnf ]; then
+                        14)
+                                #Installing Larvel
+                                echo "Installing Larvel"
+                                sudo mysql
+                                # If /root/.my.cnf exists then it won't ask for root password
+                                if [ -f /root/.my.cnf ]; then
                                 echo "Enter database name!"
                                 read dbname
                                 echo "Creating new MySQL database..."
@@ -494,10 +504,10 @@
                                 echo "Granting ALL privileges on ${dbname} to ${username}!"
                                 mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${username}'@'localhost';"
                                 mysql -e "FLUSH PRIVILEGES;"
+                                then
                                 echo "You're good now :)"
-                        	exit
-                                # If /root/.my.cnf doesn't exist then it'll ask for root password	
-                        	else
+                                # If /root/.my.cnf doesn't exist then it'll ask for root password
+                                else
                                 echo "Please enter root user MySQL password!"
                                 echo "Note: password will be hidden when typing"
                                 read -s rootpasswd
@@ -518,8 +528,7 @@
                                 mysql -uroot -p${rootpasswd} -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${username}'@'localhost';"
                                 mysql -uroot -p${rootpasswd} -e "FLUSH PRIVILEGES;"
                                 echo "You're good now :)"
-                        	exit
-                        	fi
+                                fi
                                 cd /var/www
                                 sudo git clone https://github.com/laravel/laravel.git
                                 cd /var/www/laravel
@@ -531,7 +540,7 @@
                                 sudo cp .env.example .env
                                 php artisan key:generate
                                 echo "Copy Database Info To ENV file, then create Apache2 Entry For Website"
-				;;
+                                ;;
 			15)
 				#Install Ruby
                                 echo "Install Ruby"
@@ -564,20 +573,41 @@
 				;;
 			17)
 				#Install Node.js, NVM, & NPM
-				echo "Installing Node.js, NVM, & NPM"
+				echo "Getting Ready To Install Node.js, NVM, & NPM"
+                                if (( $EUID == 0 )); then
+				echo "We See You Are Currently Root..." 
+                                echo "To Avoid Future Problems We Will"
+                                echo "Install Node.js & NVM & NPM as a NonRoot User"
 				su -c "cd ~/" $SUDO_USER
-				su -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash" $SUDO_USER 
+				su -c "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash" $SUDO_USER  
+				su -c "source ~/.bashrc" $SUDO_USER
+   				su -c "nvm install --lts" $SUDO_USER
+       	                        su -c "node -v" $SUDO_USER
+                                else
+				echo "Installing Node.js & NVM & NPM as current NonRoot User"
+				cd ~/
+				curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 				source ~/.bashrc
 				nvm install --lts
 				node -v
+                                fi
+				echo "Node.js & NVM & NPM Installation Successful"
 				;;
 			18)
 				#Clang 17
 				echo "Installing Clang"
+                                if (( $EUID == 0 )); then
+                                echo "Installing Clang as NonRoot User"
 				su -c "cd ~/" $SUDO_USER
 				su -c "wget https://apt.llvm.org/llvm.sh" $SUDO_USER 
 				su -c "chmod u+x llvm.sh" $SUDO_USER
-				echo -e '\n' | sudo ./llvm.sh 17
+                                else
+                                echo "Installing Clang 17 As Your Current User"
+                                cd ~/
+                                wget https://apt.llvm.org/llvm.sh
+				chmod u+x llvm.sh
+                                fi
+				echo -e '\n' | sudo ./llvm.sh
 				clang-17 --version
 				echo "Clang 17 Successfully Installed"
 				;;
