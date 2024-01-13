@@ -504,7 +504,6 @@
                                 echo "Granting ALL privileges on ${dbname} to ${username}!"
                                 mysql -e "GRANT ALL PRIVILEGES ON ${dbname}.* TO '${username}'@'localhost';"
                                 mysql -e "FLUSH PRIVILEGES;"
-                                then
                                 echo "You're good now :)"
                                 # If /root/.my.cnf doesn't exist then it'll ask for root password
                                 else
